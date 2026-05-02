@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+ <title>CyberScryb Changelog</title>
+ <description>Product updates and release notes from CyberScryb.</description>
+ <link>https://cyberscryb.com/changelog</link>
+ <language>en-us</language>
+ <item>
+  <title>Client-Side Excellence and Hash Sync (v4.1.2)</title>
+  <description>Broke the last few HTTP tethers. Tools now serialize state into LZ-compressed URL hashes. Because saving your configurations should not require an API request to a database I have to pay for, and you have to worry about.</description>
+  <pubDate>Mon, 23 Oct 2024 12:00:00 GMT</pubDate>
+  <link>https://cyberscryb.com/changelog</link>
+ </item>
+</channel>
+</rss>

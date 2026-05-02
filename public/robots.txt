@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /tools/
+Allow: /changelog
+Allow: /manifesto
+Allow: /blog
+
+Sitemap: https://cyberscryb.com/sitemap.xml
