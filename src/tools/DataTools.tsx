@@ -8,6 +8,7 @@ import { useAI } from '../lib/useAI';
 import { Button } from '../components/ui/Button';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import { useToolState } from '../lib/useToolState';
+import { AIInlineExplanation, AITooltipInfo } from '../components/AIExplanation';
 
 export const DataTools = [
   {
@@ -101,6 +102,7 @@ export const DataTools = [
         <div className="p-8 space-y-4">
            <input className="w-full bg-surface p-4 text-xl font-mono text-center rounded border-subtle border" value={input} onChange={e=>{setState({input: e.target.value}); setShowSample(false);}} />
            <div className="text-center font-mono text-lg text-[#34F5C5]">{isNaN(d.getTime()) ? 'Invalid Date' : d.toISOString()}</div>
+           {!isNaN(d.getTime()) && <AIInlineExplanation prompt={"Explain the components of this ISO-8601 string."} context={d.toISOString()} label="Explain this ISO Format (AI)" />}
         </div>
       </ToolShell>
     }

@@ -7,6 +7,7 @@ import { Base64 } from 'js-base64';
 import { useAI } from '../lib/useAI';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import { useToolState } from '../lib/useToolState';
+import { AIInlineExplanation, AITooltipInfo } from '../components/AIExplanation';
 
 export const CryptoTools = [
   {
@@ -93,7 +94,7 @@ export const CryptoTools = [
          if (!output || output.includes('Invalid') || output.includes('Error')) return;
          ai.stream({
             model: 'gemini-3.1-pro',
-            prompt: `Explain this JWT payload and header in human terms. Look for red flags (expired, weak algorithms, missing claims). Return in markdown.\n\n${output}`
+            prompt: `Explain this JWT payload and header in human terms. Look for red flags (expired, weak algorithms, missing claims). Also, include a section on security best practices and common pitfalls related to JWT usage (e.g., storing in localStorage vs HttpOnly cookies, signature verification). Return in markdown.\n\n${output}`
          });
       };
 
@@ -178,6 +179,9 @@ export const CryptoTools = [
              <div className="text-center font-mono">
                <div className="text-sm text-muted uppercase tracking-widest mb-1">Estimated Crack Time</div>
                <div className="text-3xl text-primary font-bold">{score.crack_times_display.offline_fast_hashing_1e10_per_second}</div>
+             </div>
+             <div className="text-center">
+                 <AIInlineExplanation prompt="Explain why zxcvbn evaluates this password's strength this way and give one tip to make it stronger." context={`Password: ${input}\nScore: ${score.score}\nCrack time: ${score.crack_times_display.offline_fast_hashing_1e10_per_second}`} label="Explain Password Strength (AI)" />
              </div>
              {score.feedback.warning && <p className="text-red-400 text-center font-bold text-sm bg-red-400/10 py-2 rounded border border-red-500/20">{score.feedback.warning}</p>}
              {score.feedback.suggestions.length > 0 && (

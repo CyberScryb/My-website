@@ -5,6 +5,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { useAI } from '../lib/useAI';
 import { Button } from '../components/ui/Button';
 import { useToolState } from '../lib/useToolState';
+import { AIInlineExplanation, AITooltipInfo } from '../components/AIExplanation';
 
 export const MediaTools = [
   {
@@ -65,6 +66,7 @@ export const MediaTools = [
                        <div className="bg-elevated border border-warning/20 p-4 rounded-xl">
                           <h3 className="text-warning font-bold flex items-center gap-2 mb-2"><ShieldCheck size={16}/> Metadata Detected</h3>
                           <p className="text-xs text-muted mb-4">This image contains EXIF metadata, which may include location, timestamps, and camera details.</p>
+                          <div className="mb-4"><AIInlineExplanation prompt="Explain what EXIF data is and why someone would want to strip it for privacy reasons." context="-" label="Why should I strip this? (AI)" /></div>
                           <Button primary onClick={stripMetadata} className="w-full">Strip Metadata</Button>
                        </div>
                     ) : (

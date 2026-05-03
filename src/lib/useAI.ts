@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { ai, GenerateOptions } from './ai/gemini';
+import { requireAIOptIn } from './aiOptIn';
 
 export function useAI() {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,6 +10,9 @@ export function useAI() {
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const run = useCallback(async <T>(opts: GenerateOptions<T>) => {
+    const approved = await requireAIOptIn();
+    if (!approved) return;
+
     setIsLoading(true);
     setError(null);
     setResult(null);
@@ -34,6 +38,9 @@ export function useAI() {
   }, []);
 
   const stream = useCallback(async (opts: GenerateOptions<any>) => {
+    const approved = await requireAIOptIn();
+    if (!approved) return;
+
     setIsLoading(true);
     setError(null);
     setResult(null);

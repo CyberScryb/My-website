@@ -1,7 +1,7 @@
 import React, { Suspense, useState, useEffect, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Link, Outlet, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { Terminal, Search, Github, Settings, SearchCode } from 'lucide-react';
+import { Terminal, Search, Github, Settings, SearchCode, Sparkles } from 'lucide-react';
 import { TOOLS } from './src/lib/tools.registry';
 import { EXAMPLES, ToolExample } from './src/lib/examples.data';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -19,6 +19,35 @@ const PageSkeleton = () => (
      <div className="w-8 h-8 border-4 border-[#34F5C5]/20 border-t-[#34F5C5] rounded-full animate-spin"></div>
   </div>
 );
+
+const AIOptInModal = () => {
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        const handler = () => setOpen(true);
+        window.addEventListener('AI_OPT_IN_REQUEST', handler);
+        return () => window.removeEventListener('AI_OPT_IN_REQUEST', handler);
+    }, []);
+
+    if (!open) return null;
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-base/80 backdrop-blur" style={{position: 'fixed'}}>
+          <div className="bg-surface border border-subtle rounded-xl p-6 max-w-sm w-full shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <h2 className="text-lg font-bold text-primary mb-2 flex items-center gap-2">
+               <span className="text-indigo-400">✨</span> Enable AI Features?
+            </h2>
+            <p className="text-sm text-muted mb-6 leading-relaxed">
+               You are about to use an AI feature. Your input data for this specific action will be sent to the <strong>Google Gemini API</strong> for processing.<br/><br/>This is the <em>only</em> time data leaves your device. Do you want to proceed?
+            </p>
+            <div className="flex justify-end gap-3">
+               <button className="px-4 py-2 border border-subtle rounded-md text-muted hover:bg-elevated text-sm font-medium transition-colors" onClick={() => { setOpen(false); window.dispatchEvent(new CustomEvent('AI_OPT_IN_RESPONSE', { detail: { approved: false } })); }}>Cancel</button>
+               <button className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 border border-indigo-400 text-white rounded-md text-sm font-medium transition-colors" onClick={() => { setOpen(false); window.dispatchEvent(new CustomEvent('AI_OPT_IN_RESPONSE', { detail: { approved: true } })); }}>Allow & Proceed</button>
+            </div>
+          </div>
+        </div>
+    );
+};
 
 const Header = ({ onSearchClick }: { onSearchClick: () => void }) => {
   return (
@@ -295,6 +324,7 @@ export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <AIOptInModal />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />

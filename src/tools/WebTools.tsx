@@ -4,6 +4,7 @@ import { Search, Globe, Code2, Server, Sparkles } from 'lucide-react';
 import { useAI } from '../lib/useAI';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import { useToolState } from '../lib/useToolState';
+import { AIInlineExplanation, AITooltipInfo } from '../components/AIExplanation';
 
 export const WebTools = [
   {
@@ -33,7 +34,7 @@ export const WebTools = [
       return <ToolShell config={config} onClose={onClose} shareMethod={copyShareLink} sampleBanner={showSample} onDismissSample={()=>setShowSample(false)} rightSidebar={{whyItMatters: "Most API docs only provide cURL examples. AI makes syntax translation flawless without needing specific parsing libraries for every target language."}}>
          <SplitPane 
             leftConfig={{ title: 'CURL COMMAND' }}
-            left={<CodeEditor value={input} onChange={(v:string)=>{setState(s=>({...s, input: v}));setShowSample(false);}} placeholder="Paste cURL here..."/>} 
+            left={<div className="h-full relative"><CodeEditor value={input} onChange={(v:string)=>{setState(s=>({...s, input: v}));setShowSample(false);}} placeholder="Paste cURL here..."/><div className="absolute bottom-4 left-4 right-4 z-10 p-2 bg-base rounded-md border border-subtle shadow overflow-y-auto max-h-[150px]"><AIInlineExplanation prompt="Explain what this curl command does, the method, headers, and the body in a human readable way." context={input} label="Explain this cURL (AI)" /></div></div>} 
             rightConfig={{ 
                title: `CODE (${lang.toUpperCase()})`,
                actions: (
@@ -193,14 +194,14 @@ export const WebTools = [
               <div className="p-6 space-y-4 text-sm h-full overflow-auto bg-surface/30">
                  <div>
                     <label className="flex justify-between text-muted mb-1">
-                       <span>Title</span>
+                       <AITooltipInfo prompt="Why is the SEO Meta title important and how long should it be?" value={title}><span>Title <Sparkles size={10} className="inline ml-1 text-indigo-400 opacity-50" /></span></AITooltipInfo>
                        <span className={title.length > 60 ? "text-red-400" : ""}>{title.length}/60</span>
                     </label>
                     <input className="w-full bg-surface border border-subtle rounded p-2 text-primary focus:border-[#34F5C5] focus:outline-none transition-colors" value={title} onChange={e=>setState(s=>({...s, title: e.target.value}))} />
                  </div>
                  <div>
                     <label className="flex justify-between text-muted mb-1">
-                       <span>Description</span>
+                       <AITooltipInfo prompt="Why is the SEO Description important and how long should it be?" value={desc}><span>Description <Sparkles size={10} className="inline ml-1 text-indigo-400 opacity-50" /></span></AITooltipInfo>
                        <span className={desc.length > 155 ? "text-red-400" : ""}>{desc.length}/155</span>
                     </label>
                     <textarea className="w-full h-24 bg-surface border border-subtle rounded p-2 text-primary resize-none focus:border-[#34F5C5] focus:outline-none transition-colors" value={desc} onChange={e=>setState(s=>({...s, desc: e.target.value}))} />

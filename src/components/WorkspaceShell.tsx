@@ -25,9 +25,9 @@ export const ToolShell = ({ config, children, sampleBanner, onDismissSample, sha
   return (
     <div className="flex flex-col md:flex-row h-full bg-base animate-in fade-in duration-300">
       <Helmet>
-        <title>{config.name} — 100% Local, No Server | CyberScryb</title>
-        <meta name="description" content={`Free client-side ${config.name.toLowerCase()}. ${config.description} No tracking, no uploads.`} />
-        <meta property="og:title" content={`${config.name} — 100% Local | CyberScryb`} />
+        <title>{config.name} — {config.aiFeatures?.length > 0 ? "Local + AI" : "100% Local, No Server"} | CyberScryb</title>
+        <meta name="description" content={`Free client-side ${config.name.toLowerCase()}. ${config.description} ${config.aiFeatures?.length > 0 ? 'Includes optional AI.' : 'No tracking, no uploads.'}`} />
+        <meta property="og:title" content={`${config.name} — ${config.aiFeatures?.length > 0 ? "Local + AI" : "100% Local"} | CyberScryb`} />
         <meta property="og:description" content={`Free client-side ${config.name.toLowerCase()}. ${config.description}`} />
         <meta property="og:image" content={`data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="%2309090b"/><rect x="50" y="50" width="1100" height="530" rx="20" fill="%23121214" stroke="%2327272a" stroke-width="2"/><text x="100" y="200" font-family="monospace" font-size="60" font-weight="bold" fill="%23f4f4f5">${encodeURIComponent(config.name)}</text><text x="100" y="280" font-family="sans-serif" font-size="30" fill="%23a1a1aa">${encodeURIComponent(config.description)}</text><text x="100" y="500" font-family="monospace" font-size="40" fill="%2334f5c5" font-weight="bold">CYBERSCRYB ${encodeURIComponent(config.category.toUpperCase())}</text></svg>`} />
         <meta property="twitter:card" content="summary_large_image" />
@@ -69,7 +69,7 @@ export const ToolShell = ({ config, children, sampleBanner, onDismissSample, sha
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted">{config.description}</p>
             <div className="text-[10px] font-mono text-muted uppercase tracking-widest flex items-center gap-2 px-2 py-0.5 bg-surface rounded border border-subtle">
-               <span className="w-1.5 h-1.5 bg-accent rounded-full"></span> 100% Local Execution
+               <span className="w-1.5 h-1.5 bg-accent rounded-full"></span> {config.aiFeatures?.length > 0 ? 'Local + Optional Cloud AI' : '100% Local Execution'}
             </div>
           </div>
           

@@ -8,6 +8,8 @@ import { useToolState } from '../lib/useToolState';
 import cronstrue from 'cronstrue';
 import parser from 'cron-parser';
 
+import { AIInlineExplanation } from '../components/AIExplanation';
+
 export const DevTools = [
   {
     id: 'cron', title: 'Cron Expression Builder', desc: 'Visual builder for cron expressions with human translation.', icon: <Clock size={18} />, tag: 'Dev',
@@ -37,6 +39,7 @@ export const DevTools = [
           <div className="p-12 flex flex-col items-center h-full w-full justify-center overflow-auto w-full">
              <input type="text" value={cron} onChange={e=>{setState({cron: e.target.value}); setShowSample(false);}} className="w-full max-w-xl text-center bg-surface border-strong border p-4 rounded text-3xl font-mono text-primary focus:outline-none focus:border-accent shadow-inner"/>
              <div className="mt-8 text-2xl font-bold text-accent">{human}</div>
+             <AIInlineExplanation prompt="Explain this specific CRON expression. Emphasize what each part means (minute, hour, day, etc)." context={cron} label="Explain this Cron (AI)" />
              {nextRun.length > 0 && (
                 <div className="mt-12 bg-elevated border border-subtle rounded-lg p-6 w-full max-w-xl">
                    <h3 className="text-xs uppercase tracking-widest font-bold text-muted mb-4 font-mono">Next 5 Ticks</h3>

@@ -57,7 +57,7 @@ export const Changelog = () => {
          <div className="flex items-end justify-between mb-16 border-b border-subtle pb-8">
             <div>
                <h1 className="text-4xl font-bold tracking-tight mb-4">Changelog</h1>
-               <p className="text-muted text-lg">Every commit, feature, and refactor. No marketing fluff.</p>
+               <p className="text-muted text-lg">Every commit, feature, and refactor. No marketing nonsense.</p>
             </div>
             <a href="/rss.xml" target="_blank" className="flex items-center gap-2 text-accent hover:text-white transition-colors pb-1">
                <Rss size={16} />

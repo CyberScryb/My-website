@@ -57,7 +57,7 @@ export default function Home() {
     <>
       <Helmet>
         <title>CyberScryb | Universal Client-Side Tools</title>
-        <meta name="description" content="A powerful suite of client-side developer tools. No tracking, no server execution. 100% privacy." />
+        <meta name="description" content="A powerful suite of client-side developer tools. No tracking, minimal server dependency, optional AI features. Privacy first." />
       </Helmet>
       
       <AnimatePresence>
@@ -107,7 +107,7 @@ export default function Home() {
 
         <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center gap-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-subtle text-xs font-mono text-accent uppercase tracking-widest mb-4">
-             <ShieldCheck size={14} /> 100% Client-Side Execution
+             <ShieldCheck size={14} /> Local-First Execution (Optional AI)
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-primary leading-[1.1] mb-2">
@@ -233,7 +233,7 @@ export default function Home() {
                     
                     <div className="relative z-10 mt-auto flex items-center justify-between w-full">
                        <div className="flex items-center gap-1.5 text-xs font-mono text-muted/70 group-hover:text-accent transition-colors">
-                          <span className="w-1.5 h-1.5 rounded-full bg-current"></span> process locally
+                          <span className="w-1.5 h-1.5 rounded-full bg-current"></span> {tool.aiFeatures?.length > 0 ? "local + optional AI" : "process locally"}
                        </div>
                     </div>
                   </motion.div>
